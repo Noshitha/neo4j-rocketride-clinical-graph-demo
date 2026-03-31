@@ -1,1 +1,2 @@
 # neo4j-rocketride-clinical-graph-demo
+A graph-native prototype for patient-specific follow-up reasoning in head & neck care, where a conservative guideline agent and an anatomy-aware agent can disagree based on prior surgical context.
