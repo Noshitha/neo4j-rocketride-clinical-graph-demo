@@ -1,0 +1,263 @@
+[
+  {
+    "patient_id": "P001",
+    "demographics": {
+      "age": 67,
+      "sex": "female"
+    },
+    "conditions": {
+      "diabetes_type": "T2D",
+      "ckd": true,
+      "ckd_stage": "G3b",
+      "albuminuria_stage": "A3",
+      "hypertension": true,
+      "heart_failure": false,
+      "ascvd": false
+    },
+    "labs": {
+      "eGFR": 38,
+      "uACR_mg_g": 620,
+      "hbA1c_percent": 8.4,
+      "serum_creatinine_mg_dL": 1.8,
+      "potassium_mEq_L": 4.9,
+      "systolic_bp": 148,
+      "diastolic_bp": 86
+    },
+    "medications": [
+      {
+        "name": "metformin",
+        "class": "biguanide",
+        "dose": "500 mg BID",
+        "status": "active"
+      },
+      {
+        "name": "amlodipine",
+        "class": "calcium_channel_blocker",
+        "dose": "5 mg daily",
+        "status": "active"
+      }
+    ],
+    "risk_markers": [
+      "severe_albuminuria",
+      "poor_glycemic_control",
+      "uncontrolled_blood_pressure",
+      "progressive_ckd_risk"
+    ],
+    "contraindications_or_intolerances": [],
+    "follow_up_event": {
+      "event_date": "2026-03-15",
+      "summary": "Repeat follow-up shows rising albuminuria and persistent hypertension with no kidney-protective therapy documented.",
+      "trend_flags": [
+        "uACR_rising",
+        "bp_persistently_elevated"
+      ]
+    },
+    "expected_reasoning_profile": {
+      "guideline_agent": "recommend_escalation_and_medication_review",
+      "kidney_risk_agent": "strong_escalation_due_to_progression_risk",
+      "agreement": "agree"
+    }
+  },
+  {
+    "patient_id": "P002",
+    "demographics": {
+      "age": 59,
+      "sex": "male"
+    },
+    "conditions": {
+      "diabetes_type": "T2D",
+      "ckd": true,
+      "ckd_stage": "G2",
+      "albuminuria_stage": "A2",
+      "hypertension": true,
+      "heart_failure": false,
+      "ascvd": true
+    },
+    "labs": {
+      "eGFR": 74,
+      "uACR_mg_g": 110,
+      "hbA1c_percent": 6.9,
+      "serum_creatinine_mg_dL": 1.1,
+      "potassium_mEq_L": 4.4,
+      "systolic_bp": 124,
+      "diastolic_bp": 76
+    },
+    "medications": [
+      {
+        "name": "losartan",
+        "class": "arb",
+        "dose": "100 mg daily",
+        "status": "active"
+      },
+      {
+        "name": "empagliflozin",
+        "class": "sglt2_inhibitor",
+        "dose": "10 mg daily",
+        "status": "active"
+      },
+      {
+        "name": "metformin",
+        "class": "biguanide",
+        "dose": "1000 mg BID",
+        "status": "active"
+      },
+      {
+        "name": "atorvastatin",
+        "class": "statin",
+        "dose": "40 mg nightly",
+        "status": "active"
+      }
+    ],
+    "risk_markers": [
+      "moderate_albuminuria",
+      "ascvd_history"
+    ],
+    "contraindications_or_intolerances": [],
+    "follow_up_event": {
+      "event_date": "2026-03-18",
+      "summary": "Routine follow-up shows stable kidney function, controlled blood pressure, and improved glycemic control.",
+      "trend_flags": [
+        "eGFR_stable",
+        "uACR_stable",
+        "bp_controlled",
+        "a1c_improved"
+      ]
+    },
+    "expected_reasoning_profile": {
+      "guideline_agent": "continue_current_management_and_monitor",
+      "kidney_risk_agent": "continue_and_routine_follow_up",
+      "agreement": "agree"
+    }
+  },
+  {
+    "patient_id": "P003",
+    "demographics": {
+      "age": 72,
+      "sex": "female"
+    },
+    "conditions": {
+      "diabetes_type": "T2D",
+      "ckd": true,
+      "ckd_stage": "G3a",
+      "albuminuria_stage": "A2",
+      "hypertension": true,
+      "heart_failure": false,
+      "ascvd": false
+    },
+    "labs": {
+      "eGFR": 52,
+      "uACR_mg_g": 180,
+      "hbA1c_percent": 7.3,
+      "serum_creatinine_mg_dL": 1.3,
+      "potassium_mEq_L": 5.0,
+      "systolic_bp": 132,
+      "diastolic_bp": 78
+    },
+    "medications": [
+      {
+        "name": "lisinopril",
+        "class": "ace_inhibitor",
+        "dose": "20 mg daily",
+        "status": "active"
+      },
+      {
+        "name": "metformin",
+        "class": "biguanide",
+        "dose": "500 mg BID",
+        "status": "active"
+      }
+    ],
+    "risk_markers": [
+      "moderate_albuminuria",
+      "borderline_hyperkalemia",
+      "residual_progression_risk"
+    ],
+    "contraindications_or_intolerances": [],
+    "follow_up_event": {
+      "event_date": "2026-03-20",
+      "summary": "Kidney function is fairly stable, but albuminuria persists and potassium is at the upper end of normal.",
+      "trend_flags": [
+        "persistent_albuminuria",
+        "eGFR_mild_decline_over_time",
+        "potassium_borderline_high"
+      ]
+    },
+    "expected_reasoning_profile": {
+      "guideline_agent": "consider_additional_kidney_protective_strategy",
+      "kidney_risk_agent": "cautious_review_due_to_potassium_and_progression_risk",
+      "agreement": "disagree_or_soft_disagreement"
+    }
+  },
+  {
+    "patient_id": "P004",
+    "demographics": {
+      "age": 64,
+      "sex": "male"
+    },
+    "conditions": {
+      "diabetes_type": "T2D",
+      "ckd": true,
+      "ckd_stage": "G4",
+      "albuminuria_stage": "A3",
+      "hypertension": true,
+      "heart_failure": true,
+      "ascvd": true
+    },
+    "labs": {
+      "eGFR": 24,
+      "uACR_mg_g": 840,
+      "hbA1c_percent": 7.1,
+      "serum_creatinine_mg_dL": 2.7,
+      "potassium_mEq_L": 5.7,
+      "systolic_bp": 138,
+      "diastolic_bp": 82
+    },
+    "medications": [
+      {
+        "name": "furosemide",
+        "class": "loop_diuretic",
+        "dose": "40 mg daily",
+        "status": "active"
+      },
+      {
+        "name": "insulin_glargine",
+        "class": "basal_insulin",
+        "dose": "18 units nightly",
+        "status": "active"
+      },
+      {
+        "name": "carvedilol",
+        "class": "beta_blocker",
+        "dose": "12.5 mg BID",
+        "status": "active"
+      }
+    ],
+    "risk_markers": [
+      "advanced_ckd",
+      "severe_albuminuria",
+      "hyperkalemia",
+      "heart_failure",
+      "high_progression_risk",
+      "high_cardiovascular_risk"
+    ],
+    "contraindications_or_intolerances": [
+      "prior_ace_inhibitor_stopped_for_recurrent_hyperkalemia",
+      "prior_sglt2_inhibitor_stopped_after_volume_depletion_episode"
+    ],
+    "follow_up_event": {
+      "event_date": "2026-03-22",
+      "summary": "Advanced CKD patient with severe albuminuria and recurrent hyperkalemia, creating tension between kidney-protective therapy and medication safety.",
+      "trend_flags": [
+        "eGFR_declining",
+        "uACR_persistently_very_high",
+        "recurrent_hyperkalemia",
+        "prior_medication_intolerance"
+      ]
+    },
+    "expected_reasoning_profile": {
+      "guideline_agent": "specialist_review_and_careful_reassessment",
+      "kidney_risk_agent": "urgent_safety_focused_escalation",
+      "agreement": "agree_with_different_emphasis"
+    }
+  }
+]
