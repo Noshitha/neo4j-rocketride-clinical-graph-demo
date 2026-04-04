@@ -13,7 +13,6 @@ PROMPTS_DIR = Path("prompts")
 def load_text(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
-
 def build_guideline_user_prompt(payload: Dict[str, Any]) -> str:
     return (
         "Review this patient from a guideline-alignment perspective.\n\n"

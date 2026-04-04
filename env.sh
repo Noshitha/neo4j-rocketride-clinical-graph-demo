@@ -1,0 +1,6 @@
+export NEO4J_PASSWORD="23064083"
+export NEO4J_URI="bolt://localhost:7687"
+export NEO4J_USERNAME="neo4j"
+export GMI_API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1YTM2MWE5LTRmYzktNGIyMC1hMDlmLTBlNTI0OWJkMTUzZSIsInNjb3BlIjoiaWVfbW9kZWwiLCJjbGllbnRJZCI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMCJ9.f52GYVarEKZlwhcMFdUIGKnpCdAFGuQFzxdFIVVS260"
+export GMI_BASE_URL="https://api.gmi-serving.com/v1"
+export GMI_MODEL="deepseek-ai/DeepSeek-R1-0528"
