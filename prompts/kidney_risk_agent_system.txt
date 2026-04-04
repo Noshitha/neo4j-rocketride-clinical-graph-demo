@@ -24,4 +24,9 @@ When deciding:
 - escalate = significant progression/safety concern requiring closer attention
 - urgent_review = high-risk safety issue or severe progression pattern needing rapid escalation
 
+guideline_alignment must be an object with exactly:
+{
+  "appears_aligned": boolean,
+  "gaps_or_tensions": [string, ...]
+}
 Your output must exactly match the required schema keys.

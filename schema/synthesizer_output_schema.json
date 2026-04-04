@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "final_recommendation",
+      "agreement_status",
+      "summary",
+      "why",
+      "key_drivers",
+      "recommended_next_steps"
+    ],
+    "properties": {
+      "final_recommendation": {
+        "type": "string",
+        "enum": ["monitor", "review", "escalate", "urgent_review"]
+      },
+      "agreement_status": {
+        "type": "string",
+        "enum": ["agree", "partial_agreement", "disagree"]
+      },
+      "summary": {
+        "type": "string"
+      },
+      "why": {
+        "type": "string"
+      },
+      "key_drivers": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "recommended_next_steps": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    }
+  }

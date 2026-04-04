@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agent_name",
+    "summary",
+    "recommendation",
+    "confidence",
+    "key_reasons",
+    "guideline_alignment",
+    "risk_flags",
+    "recommended_next_steps"
+  ],
+  "properties": {
+    "agent_name": {
+      "type": "string",
+      "enum": ["guideline_agent", "kidney_risk_agent"]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "recommendation": {
+      "type": "string",
+      "enum": ["monitor", "review", "escalate", "urgent_review"]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "key_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "guideline_alignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["appears_aligned", "gaps_or_tensions"],
+      "properties": {
+        "appears_aligned": {
+          "type": "boolean"
+        },
+        "gaps_or_tensions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_next_steps": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

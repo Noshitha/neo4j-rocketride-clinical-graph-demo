@@ -23,5 +23,9 @@ When deciding:
 - review = management review is warranted, but not strongly urgent
 - escalate = meaningful concern or likely under-addressed risk requiring stronger follow-up
 - urgent_review = high-risk situation with immediate safety or severe progression concern
-
+guideline_alignment must be an object with exactly:
+{
+  "appears_aligned": boolean,
+  "gaps_or_tensions": [string, ...]
+}
 Your output must exactly match the required schema keys.
