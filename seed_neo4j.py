@@ -1,11 +1,67 @@
 import json
+import os
 from neo4j import GraphDatabase
 
-URI = "bolt://localhost:7687"
-USERNAME = "neo4j"
-PASSWORD = "23064083"
+DEFAULT_CANDIDATE_RECOMMENDATIONS = [
+    {
+        "rec_id": "ckd_diabetes_bp_review",
+        "title": "Review blood pressure control",
+        "action": "review",
+        "rationale": (
+            "Diabetes with CKD and hypertension may require blood pressure "
+            "optimization and monitoring."
+        ),
+    },
+    {
+        "rec_id": "ckd_diabetes_kidney_protection",
+        "title": "Assess kidney-protective therapy",
+        "action": "review",
+        "rationale": (
+            "Persistent albuminuria or elevated progression risk may warrant "
+            "clinician review of kidney-protective therapy options."
+        ),
+    },
+    {
+        "rec_id": "ckd_safety_monitoring",
+        "title": "Monitor kidney safety markers",
+        "action": "monitor",
+        "rationale": (
+            "CKD medication decisions should account for eGFR, potassium, "
+            "contraindications, intolerance history, and follow-up trends."
+        ),
+    },
+]
 
-driver = GraphDatabase.driver(URI, auth=(USERNAME, PASSWORD))
+
+def clear_demo_graph(tx):
+    tx.run(
+        """
+        MATCH (n)
+        WHERE any(label IN labels(n) WHERE label IN [
+            "Patient",
+            "ConditionProfile",
+            "LabSnapshot",
+            "Medication",
+            "RiskMarker",
+            "Contraindication",
+            "FollowUpEvent",
+            "TrendFlag",
+            "Recommendation"
+        ])
+        DETACH DELETE n
+        """
+    )
+
+
+def get_driver_from_env():
+    uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+    username = os.getenv("NEO4J_USERNAME", "neo4j")
+    password = os.getenv("NEO4J_PASSWORD")
+
+    if not password:
+        raise ValueError("Set NEO4J_PASSWORD in your environment before seeding.")
+
+    return GraphDatabase.driver(uri, auth=(username, password))
 
 
 def seed_patient(tx, patient):
@@ -128,12 +184,35 @@ def seed_patient(tx, patient):
             flag=flag,
         )
 
+    recommendations = patient.get(
+        "candidate_recommendations",
+        DEFAULT_CANDIDATE_RECOMMENDATIONS,
+    )
+    for rec in recommendations:
+        tx.run(
+            """
+            MATCH (p:Patient {patient_id: $patient_id})
+            MERGE (r:Recommendation {rec_id: $rec_id})
+            SET r.title = $title,
+                r.action = $action,
+                r.rationale = $rationale
+            MERGE (p)-[:CANDIDATE_RECOMMENDATION]->(r)
+            """,
+            patient_id=patient["patient_id"],
+            rec_id=rec["rec_id"],
+            title=rec["title"],
+            action=rec["action"],
+            rationale=rec["rationale"],
+        )
+
 
 def main():
-    with open("patient-records.json", "r") as f:
+    with open("patient-records.json", "r", encoding="utf-8") as f:
         patients = json.load(f)
 
+    driver = get_driver_from_env()
     with driver.session() as session:
+        session.execute_write(clear_demo_graph)
         for patient in patients:
             session.execute_write(seed_patient, patient)
 
