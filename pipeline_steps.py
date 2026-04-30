@@ -31,13 +31,19 @@ def call_gmi(system_prompt: str, user_prompt: str) -> Dict[str, Any]:
     api_key = os.getenv("GMI_API_KEY")
     base_url = os.getenv("GMI_BASE_URL", "https://api.gmi-serving.com/v1")
     model = os.getenv("GMI_MODEL")
+    timeout_seconds = float(os.getenv("GMI_TIMEOUT_SECONDS", "60"))
 
     if not api_key:
         raise ValueError("Set GMI_API_KEY in your environment.")
     if not model:
         raise ValueError("Set GMI_MODEL in your environment.")
 
-    client = OpenAI(api_key=api_key, base_url=base_url)
+    client = OpenAI(
+        api_key=api_key,
+        base_url=base_url,
+        timeout=timeout_seconds,
+        max_retries=0,
+    )
 
     completion = client.chat.completions.create(
         model=model,

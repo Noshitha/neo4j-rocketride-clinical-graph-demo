@@ -1,0 +1,209 @@
+{
+  "components": [
+    {
+      "id": "webhook_1",
+      "provider": "webhook",
+      "config": {
+        "hideForm": true,
+        "mode": "Source",
+        "parameters": {},
+        "type": "webhook"
+      },
+      "ui": {
+        "position": {
+          "x": -63.35750380239485,
+          "y": -173.92255945755448
+        },
+        "measured": {
+          "width": 150,
+          "height": 136
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      }
+    },
+    {
+      "id": "question_1",
+      "provider": "question",
+      "config": {
+        "type": "question"
+      },
+      "ui": {
+        "position": {
+          "x": 228.5839352870716,
+          "y": -174.23313545658584
+        },
+        "measured": {
+          "width": 150,
+          "height": 66
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      },
+      "input": [
+        {
+          "lane": "text",
+          "from": "webhook_1"
+        }
+      ]
+    },
+    {
+      "id": "llm_deepseek_1",
+      "provider": "llm_deepseek",
+      "config": {
+        "profile": "cloud-reasoner",
+        "cloud-reasoner": {
+          "apikey": "${ROCKETRIDE_DEEPSEEK_KEY}"
+        }
+      },
+      "ui": {
+        "position": {
+          "x": -315.54521501584884,
+          "y": -12.423039961253904
+        },
+        "measured": {
+          "width": 150,
+          "height": 66
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      }
+    },
+    {
+      "id": "memory_internal_1",
+      "provider": "memory_internal",
+      "config": {
+        "type": "memory_internal"
+      },
+      "ui": {
+        "position": {
+          "x": -318.0298230080996,
+          "y": -111.80735965128503
+        },
+        "measured": {
+          "width": 150,
+          "height": 50
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      }
+    },
+    {
+      "id": "db_neo4j_1",
+      "provider": "db_neo4j",
+      "config": {
+        "profile": "default",
+        "default": {
+          "db_description": "Synthetic diabetes and chronic kidney disease clinical graph. Patient nodes are connected to ConditionProfile, LabSnapshot, Medication, RiskMarker, Contraindication, FollowUpEvent, TrendFlag, and Recommendation nodes. Use patient_id values such as P001, P002, P003, and P004.",
+          "uri": "${ROCKETRIDE_NEO4J_URI}",
+          "auth_method": "userpass",
+          "user": "${ROCKETRIDE_NEO4J_USERNAME}",
+          "password": "${ROCKETRIDE_NEO4J_PASSWORD}",
+          "database": "neo4j",
+          "max_attempts": 5
+        }
+      },
+      "ui": {
+        "position": {
+          "x": -320.5144310003504,
+          "y": -270.8222711553349
+        },
+        "measured": {
+          "width": 150,
+          "height": 121
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      },
+      "control": [
+        {
+          "classType": "llm",
+          "from": "llm_deepseek_1"
+        }
+      ]
+    },
+    {
+      "id": "agent_rocketride_1",
+      "provider": "agent_rocketride",
+      "config": {
+        "agent_description": "Clinical graph reasoning orchestrator for synthetic CKD and diabetes follow-up cases.",
+        "instructions": [
+          "The incoming question contains a patient id or a short request that includes a patient id. Extract the patient_id exactly, for example P001.",
+          "Use the Neo4j tool to retrieve the full graph context for that patient, including demographics, condition profile, lab snapshot, medications, risk markers, contraindications, follow-up event, trend flags, and candidate recommendations.",
+          "Perform a guideline-alignment review first. Focus on CKD/diabetes management alignment, management gaps, monitoring needs, and escalation level. The recommendation label must be one of monitor, review, escalate, urgent_review.",
+          "Perform a kidney-risk and safety review second. Focus on kidney progression risk, hyperkalemia, worsening trends, contraindications, medication intolerance, and whether the patient appears higher risk than a guideline-only review suggests. The recommendation label must be one of monitor, review, escalate, urgent_review.",
+          "Synthesize both reviews into one final JSON object with exactly these keys: final_recommendation, agreement_status, summary, why, key_drivers, recommended_next_steps.",
+          "agreement_status must be exactly one of agree, partial_agreement, disagree. key_drivers and recommended_next_steps must be arrays of strings.",
+          "Stay grounded only in retrieved graph data. Do not invent diagnoses, medications, contraindications, or facts. Return only valid JSON without markdown."
+        ],
+        "max_waves": 8
+      },
+      "ui": {
+        "position": {
+          "x": 474.56012651989874,
+          "y": -180.13407943818143
+        },
+        "measured": {
+          "width": 150,
+          "height": 96
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      },
+      "control": [
+        {
+          "classType": "llm",
+          "from": "llm_deepseek_1"
+        },
+        {
+          "classType": "memory",
+          "from": "memory_internal_1"
+        },
+        {
+          "classType": "tool",
+          "from": "db_neo4j_1"
+        }
+      ],
+      "input": [
+        {
+          "lane": "questions",
+          "from": "question_1"
+        }
+      ]
+    },
+    {
+      "id": "response_answers_1",
+      "provider": "response_answers",
+      "config": {
+        "laneName": "answers"
+      },
+      "ui": {
+        "position": {
+          "x": 716.8094057643495,
+          "y": -89.44588772102803
+        },
+        "measured": {
+          "width": 150,
+          "height": 66
+        },
+        "nodeType": "default",
+        "formDataValid": true
+      },
+      "input": [
+        {
+          "lane": "answers",
+          "from": "agent_rocketride_1"
+        }
+      ]
+    }
+  ],
+  "source": "webhook_1",
+  "viewport": {
+    "x": 365.2011999205374,
+    "y": 265.3737266756555,
+    "zoom": 0.8049559553208321
+  },
+  "version": 1,
+  "project_id": "225d570b-cfdd-443c-9b7a-57fbe03f0d69",
+  "docRevision": 18
+}
