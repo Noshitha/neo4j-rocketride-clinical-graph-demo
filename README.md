@@ -1,4 +1,4 @@
-# Neo4j RocketRide Clinical Graph Demo
+# Graph-Native CKD Clinical Reasoning Pipeline
 
 This is a graph-native clinical reasoning prototype for synthetic diabetes and chronic kidney disease follow-up scenarios.
 
